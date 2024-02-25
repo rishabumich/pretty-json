@@ -85,7 +85,7 @@ export default function Home() {
             </Button>
             <div className="pb-5 pt-5">
               <Button className="hover:bg-blue-700" onClick={handleGetJSON}>
-                Get recent JSON
+                Get Recent JSON
               </Button>
             </div>
           </div>
