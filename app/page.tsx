@@ -17,6 +17,10 @@ export default function Home() {
   const [updatedJSON, setUpdatedJSON] = useState("");
   const [getClicked, setGetClicked] = useState(false);
 
+  useEffect(() => {
+    handleGetJSON();
+  }, []);
+
   // const invalidJSON: string = "this is not valid";
   // const validJSON: string = '{"key": "value", "nested": {"foo": "bar"}}';
 
