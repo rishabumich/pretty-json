@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Pretty JSON 📝
 
-## Getting Started
+A simple to use tool to prettify your JSON code and retrieve past data.
 
-First, run the development server:
+## Instructions to Run & Use
+
+```bash
+npm i
+```
+
+This will get all dependencies installed on your machine to make the code compatible with 3rd party packages used.
+
+#### Setting up PostgreSQL
+
+Next, we need to set up the postgreSQL backend. Download the postgreSQL app and create a new database. _Instructions on how to do so at the end of this document._
+
+Once the database is created, change the **'DATABASE_URL'** variable in the **.env** file to your new database. It will be in the format: "postgresql://user:password@localhost:5432/databaseName"
+
+As an example mine is: "postgresql://rishab@localhost:5432/prettyjson"
+
+_Note: Feel free to choose the database of your choice, using Prisma, it is adaptable to many Database Engines including MySQL and Mongo_
+
+#### Running the Project
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Using PrettyJSON
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The UI is very simple and overall easy to use. Paste your ugly JSON code into the text area, click "Prettify" and watch it get beautified! If the JSON you entered is invalid, an error will be thrown.
 
-## Learn More
+To get the most recent code you prettified, click the "Get Recent JSON" button and it will appear below.
+
+## Frameworks/Packages Used
+
+1. Next.js
+2. Typescript
+3. PostgreSQL
+4. TailwindCSS
+5. Prisma
+6. Radix UI
+7. Axios
+
+### Setup PostgreSQL Database
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Install PostgreSQL App
+2. In the app double click the pre-existing database named 'postgres'. This will open a terminal prompt automatically.
+3. In the terminal use the command **CREATE DATABASE name;**
+4. Click Start Server in the app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+\
+You are now ready to use PostgreSQL on your machine!

@@ -1,8 +1,7 @@
 "use client";
-import { userInfo } from "os";
 import { useState, ChangeEvent, useEffect, use } from "react";
 import "@radix-ui/themes/styles.css";
-import { Theme, Button } from "@radix-ui/themes";
+import { Theme, Button, Text } from "@radix-ui/themes";
 import axios, { AxiosResponse } from "axios";
 
 interface JSONObject {
@@ -15,7 +14,7 @@ export default function Home() {
   const [json, setJson] = useState("");
   const [validJSON, setValidJSON] = useState<boolean>(false);
   const [formattedJSON, setFormattedJSON] = useState("");
-  const [updatedJSON, setUpdatedJSON] = useState([]);
+  const [updatedJSON, setUpdatedJSON] = useState("");
   const [getClicked, setGetClicked] = useState(false);
 
   // const invalidJSON: string = "this is not valid";
@@ -35,10 +34,9 @@ export default function Home() {
     if (isValidJSON(userInput) === true) {
       setValidJSON(true);
       formatJSON(json);
-      console.log(formattedJSON);
       await axios.post("/api/json", { json: json });
     } else {
-      alert("Invalid JSON.");
+      alert("Error: JSON is incorrectly formatted.");
       setValidJSON(false);
     }
   }
@@ -51,25 +49,28 @@ export default function Home() {
     const jsonObject = JSON.parse(input);
     const formattedJsonString = JSON.stringify(jsonObject, null, 2);
     setFormattedJSON(formattedJsonString);
-    console.log(formattedJsonString);
   };
-
-  let counter = 0;
 
   async function handleGetJSON() {
     const response = await axios.get("api/json");
     const data = response.data;
-    data.map((entry: JSONObject) => {
-      formatJSON(entry.json);
-      counter++;
-    });
-    setUpdatedJSON(data);
-    setGetClicked(true);
+
+    try {
+      const jsonObject = JSON.parse(data[data.length - 1].json);
+      const formattedJsonString = JSON.stringify(jsonObject, null, 2);
+      setUpdatedJSON(formattedJsonString);
+      setGetClicked(true);
+    } catch (error) {
+      console.log("there was an unexpected error");
+    }
   }
 
   return (
     <div>
       <Theme>
+        <div className="text-center">
+          <Text className="font-bold text-3xl">Pretty JSON!</Text>
+        </div>
         <div className="pl-20 pt-20">
           <input
             type="text"
@@ -80,7 +81,7 @@ export default function Home() {
           ></input>
           <div className="pb-5 pt-5">
             <Button className="hover:bg-blue-700" onClick={handleSubmit}>
-              Submit
+              Prettify
             </Button>
             <div className="pb-5 pt-5">
               <Button className="hover:bg-blue-700" onClick={handleGetJSON}>
@@ -88,10 +89,14 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          {validJSON === true && <pre className="h-64">{formattedJSON}</pre>}
-        </div>
-        <div>
-          {getClicked === true && <pre>{updatedJSON[counter - 1]}</pre>}
+          {validJSON === true && (
+            <pre className="h-35 pb-5">{formattedJSON}</pre>
+          )}
+          <hr />
+          <div className="pt-5">
+            Most Recent JSON:
+            {getClicked === true && <pre className="h-64">{updatedJSON}</pre>}
+          </div>
         </div>
       </Theme>
     </div>
