@@ -46,8 +46,6 @@ To get the most recent code you prettified, click the "Get Recent JSON" button a
 
 ### Setup PostgreSQL Database
 
-To learn more about Next.js, take a look at the following resources:
-
 1. Install PostgreSQL App
 2. In the app double click the pre-existing database named 'postgres'. This will open a terminal prompt automatically.
 3. In the terminal use the command **CREATE DATABASE name;**
